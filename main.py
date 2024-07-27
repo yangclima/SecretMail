@@ -5,23 +5,6 @@ from database import UserVariables
 
 variables = UserVariables().variables
 
-menuGeral = createMenu(
-    [
-        "Criptografar  mensagem", 
-        "Descriptografar mensagem"
-    ],
-
-    [
-        encrypt, 
-        decrypt
-    ],
-
-    [
-        ["input('Insira a mensagem: ')", "getKey()"], 
-        ["input('Insira a mensagem: ')", "getKey()"]
-    ]
-)
-
 while True:
     userInput = commandDetector(input(">> "), variables)
     result = ""
@@ -30,7 +13,7 @@ while True:
         case "encrypt":
             result = encrypt(userInput[1], getKey(userInput[2]))
             print(result)
-            
+
         case "decrypt":
             result = decrypt(userInput[1], getKey(userInput[2]))
             print(result)
