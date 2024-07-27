@@ -1,45 +1,18 @@
-def commandDetector(userInput: str) -> list:
-    userInput = list(userInput)
+import re
 
-    argumentList = []
-    argument = ""
+argsPattern = re.compile(r'".+"|[a-zA-Z0-9\.]+|\$[a-zA-Z]+[a-zA-Z0-9_]*')
+complexArgsPatern = re.compile(r'".+"')
+variableArgsPattern = re.compile(r'\$[a-zA-Z]+[a-zA-Z0-9_]*')
 
-    oppenedArgument = False
-    scapeChracter = False
+def commandDetector(userInput: str, UserVariables: dict = {}) -> list:
+    args = argsPattern.findall(userInput)
+    complexArgs = complexArgsPatern.findall(userInput)
+    variableArgs = variableArgsPattern.findall(userInput)
+    
+    for index, item in enumerate(args):
+        if item in complexArgs:
+            args[index] = item[1:-1]
+        if item in variableArgs:
+            args[index] = UserVariables.get(item[1::])
 
-    for index, item in enumerate(userInput):
-
-        if item == "\\":
-            scapeChracter = True
-            continue
-
-        if scapeChracter:
-            argument = argument + userInput[index]
-
-        # Detecta o fechamento do argumento
-        if oppenedArgument and item == '"':
-            oppenedArgument = False
-            continue
-        
-        # Adiciona qualquer caractere indiscriminadamente enquanto houver um argumento aberto
-        if oppenedArgument:
-            argument = argument + userInput[index]
-            continue
-
-        # Detectada que o argumento está finalizado por um espaço
-        if item == " ":
-            argumentList.append(argument)
-            argument = ""
-
-        elif index == len(userInput) - 1:
-            argument = argument + userInput[index]
-            argumentList.append(argument)
-
-        # Detecta a abertura de um argumento
-        elif item == '"':
-            oppenedArgument = True
-        # Adiciona os caracteres 
-        else:
-            argument = argument + userInput[index]
-
-    return argumentList
+    return args

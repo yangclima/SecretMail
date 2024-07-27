@@ -1,6 +1,9 @@
 from encrypt import *
 from interface import *
 from inputProcess import *
+from database import UserVariables
+
+variables = UserVariables().variables
 
 menuGeral = createMenu(
     [
@@ -20,13 +23,18 @@ menuGeral = createMenu(
 )
 
 while True:
-    userInput = commandDetector(input(">> "))
+    userInput = commandDetector(input(">> "), variables)
     result = ""
 
     match userInput[0]:
         case "encrypt":
-            result = encrypt(userInput[1], [int(i) for i in userInput[2].split(".")])
+            result = encrypt(userInput[1], getKey(userInput[2]))
+            print(result)
+            
         case "decrypt":
-            result = decrypt(userInput[1], [int(i) for i in userInput[2].split(".")])
+            result = decrypt(userInput[1], getKey(userInput[2]))
+            print(result)
 
-    print(result)
+        case "setVariable":
+            variables.update({userInput[1]: userInput[2]})
+
