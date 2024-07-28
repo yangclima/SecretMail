@@ -1,11 +1,8 @@
-{   
+{
     "restricted": false,
-
     "password": null,
-
     "databaseContent": {
         "users": {
-
             "defaltUser": {
                 "content": {
                     "localVariables": {
@@ -14,18 +11,18 @@
                     }
                 }
             },
-
             "yangclima": {
                 "acess": {
                     "restricted": true,
                     "password": "1234"
                 },
-
                 "content": {
-                    "localVariables": {}
+                    "localVariables": {
+                        "toEncrypt": "Olá, belo mundo, bom dia!",
+                        "key": "192.168.0.1"
+                    }
                 }
             },
-
             "ashilleymasilva": {
                 "acess": {
                     "restricted": true,
@@ -35,7 +32,6 @@
                     "localVariables": {}
                 }
             },
-
             "yuregclima": {
                 "acess": {
                     "restricted": true,

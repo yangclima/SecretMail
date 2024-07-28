@@ -19,8 +19,9 @@ def encrypt(msg: str, key: list):
     for index, item in enumerate(msg):
         msg[index] = item + key[a]
 
-        if msg[index] >= NUMBER_OF_VALID_CHARACTERS:
-            msg[index] -= NUMBER_OF_VALID_CHARACTERS
+        if msg[index] > NUMBER_OF_VALID_CHARACTERS:
+            msg[index] %= NUMBER_OF_VALID_CHARACTERS
+
 
         a += 1
         if a >= len(key):
@@ -40,6 +41,9 @@ def decrypt(msg: str, key: list):
     a = 0
     for index, item in enumerate(msg):
         msg[index] = item - key[a]
+
+        if msg[index] < 0:
+            msg[index] %= -NUMBER_OF_VALID_CHARACTERS
 
         a += 1
         if a >= len(key):

@@ -2,26 +2,37 @@ from encrypt import *
 from inputProcessing import *
 from userAdmin import userAdmin
 
-userVariables = userAdmin.userContent.get("localVariables")
 tempVariables = {}
 
 
 while True:
-    userInput = commandDetector(input(">> "), userVariables, tempVariables)
-    result = ""
+    userInput = commandDetector(
+        input(f"{userAdmin.currentUser}>> "), 
+        userAdmin.userContent.get("localVariables"), 
+        tempVariables
+        )
 
-    match userInput[0]:
+    match userInput["args"][0]:
         case "encrypt":
-            result = encrypt(userInput[1], getKey(userInput[2]))
+            result = encrypt(userInput["args"][1], getKey(userInput["args"][2]))
             print(result)
 
         case "decrypt":
-            result = decrypt(userInput[1], getKey(userInput[2]))
+            result = decrypt(userInput["args"][1], getKey(userInput["args"][2]))
             print(result)
 
         case "setVariable":
-            tempVariables.update({userInput[1]: userInput[2]})
+            if userInput.get("modifiers"):
+                match userInput["modifiers"][0]:
+                    case "-store":
+                        userAdmin.storeVariable(userInput["args"][1], userInput["args"][2])
+                    case _:
+                        pass
+            else:
+                tempVariables.update({userInput["args"][1]: userInput["args"][2]})
+
+        case "switchUser":
+            userAdmin.switchUser()
 
         case _: 
             pass
-

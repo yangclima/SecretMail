@@ -4,7 +4,8 @@ import json
 class DatabaseAdmin:
 
     def __init__(self, path: str, databaseKey: str = None) -> None:
-        with open(path, 'r', encoding="utf-8") as file:
+        self.path = path
+        with open(self.path, 'r', encoding="utf-8") as file:
             self.database: dict = json.load(file)
             if self.database.get("restricted"):
                 if not (databaseKey == self.database.get("password")):
@@ -16,5 +17,6 @@ class DatabaseAdmin:
     def getKeys(self, key: str):
         return list(self.database["databaseContent"].get(key).keys())
     
-    def post(self, path, content):
-        pass
+    def post(self, content):
+        with open(self.path, 'w', encoding="utf-8") as file:
+            json.dump(content,file, ensure_ascii=False, indent=4)

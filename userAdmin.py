@@ -29,8 +29,15 @@ class UserAdmin:
 
             if userAcess.get("restricted"):
                 password = getpass("Password: ")
-                if password == userAcess.get(password):
+                if password == userAcess["password"]:
                     self.userContent =  self.database.get("users").get(login).get("content")
                     self.currentUser = login
+
+    def storeVariable(self, variable, value):
+        allData = self.database.database
+        allData.get("databaseContent").get("users").get(self.currentUser).get("content").get("localVariables").update(
+            {variable: value}
+        )
+        self.database.post(allData)
 
 userAdmin = UserAdmin(DatabaseAdmin(DATABASE_PATH))
