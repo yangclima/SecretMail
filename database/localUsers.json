@@ -1,0 +1,50 @@
+{   
+    "restricted": false,
+
+    "password": null,
+
+    "databaseContent": {
+        "users": {
+
+            "defaltUser": {
+                "content": {
+                    "localVariables": {
+                        "toEncrypt": "Olá mundo!",
+                        "key": "10.46.0.20"
+                    }
+                }
+            },
+
+            "yangclima": {
+                "acess": {
+                    "restricted": true,
+                    "password": "1234"
+                },
+
+                "content": {
+                    "localVariables": {}
+                }
+            },
+
+            "ashilleymasilva": {
+                "acess": {
+                    "restricted": true,
+                    "password": "4321"
+                },
+                "content": {
+                    "localVariables": {}
+                }
+            },
+
+            "yuregclima": {
+                "acess": {
+                    "restricted": true,
+                    "password": "@dmin"
+                },
+                "content": {
+                    "localVariables": {}
+                }
+            }
+        }
+    }
+}

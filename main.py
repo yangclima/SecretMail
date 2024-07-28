@@ -1,12 +1,13 @@
 from encrypt import *
-from interface import *
-from inputProcess import *
-from database import UserVariables
+from inputProcessing import *
+from userAdmin import userAdmin
 
-variables = UserVariables().variables
+userVariables = userAdmin.userContent.get("localVariables")
+tempVariables = {}
+
 
 while True:
-    userInput = commandDetector(input(">> "), variables)
+    userInput = commandDetector(input(">> "), userVariables, tempVariables)
     result = ""
 
     match userInput[0]:
@@ -19,5 +20,8 @@ while True:
             print(result)
 
         case "setVariable":
-            variables.update({userInput[1]: userInput[2]})
+            tempVariables.update({userInput[1]: userInput[2]})
+
+        case _: 
+            pass
 
