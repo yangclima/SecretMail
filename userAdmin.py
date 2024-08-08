@@ -34,7 +34,7 @@ class UserAdmin:
                     self.currentUser = login
 
     def storeVariable(self, variable, value):
-        allData = self.database.database
+        allData = self.database.data
         allData.get("databaseContent").get("users").get(self.currentUser).get("content").get("localVariables").update(
             {variable: value}
         )
